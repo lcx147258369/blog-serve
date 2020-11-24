@@ -20,7 +20,7 @@ exports.CROSS_DOMAIN = {
 exports.CONFIG= {
     host: 'localhost',
     user: 'root',
-    password: 'licaixin123',
+    password: 'root',
     database: 'blog',
     port: 3306
 }

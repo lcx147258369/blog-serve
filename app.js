@@ -6,12 +6,13 @@ const logger = require('morgan')
 const session = require('express-session')
 const userModel = require('./mysql/mysql.js')
 
-
-
 // import 等语法要用到 babel 支持
 require('babel-register')
-
 const app = express()
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 app.use(logger('dev'))
 app.use(express.json())
@@ -29,10 +30,22 @@ app.use(
     })
 )
 
+app.all('*', function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', '*');
+    res.header('Content-Type', 'application/json;charset=utf-8');
+    next();
+})
 
 
-const route = require('./route/register.js')
-route(app)
+
+const route = require('./route/index.js')
+route(app);
+
+// 404的处理
+app.use(function(req, res, next) {
+    res.send(res.body);
+})
 
 
 // 404的处理

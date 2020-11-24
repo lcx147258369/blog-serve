@@ -13,12 +13,14 @@ var pool = mysql.createPool({
     port: CONFIG.port
 })
 
+// console.log()
+
 /**
  * 查询方法
  * @param {*} sql 
  * @param {*} values 
  */
-let query = (sql, values) => {
+export const query = (sql, values) => {
     return new Promise((resolve, reject) => {
         pool.getConnection((err, connection) => {
             if(err) {
@@ -43,7 +45,7 @@ let users =
         id INT NOT NULL AUTO_INCREMENT,
         name VARCHAR(100) NOT NULL COMMENT '用户名',
         pass VARCHAR(100) NOT NULL COMMENT '密码',
-        avator VARCHAR(100) NOT NULL COMMENT '头像',
+        avatar VARCHAR(100) NOT NULL DEFAULT 'http://pic4.zhimg.com/50/v2-863f6b3e7f1df641afc798eb56b60fc6_hd.jpg' COMMENT '头像',
         moment VARCHAR(100) NOT NULL COMMENT '注册时间',
         PRIMARY KEY(id)
     );`
@@ -60,7 +62,7 @@ let posts =
         comments VARCHAR(200) NOT NULL DEFAULT '0' COMMENT '文章数评论',
         md TEXT(0) NOT NULL COMMENT 'markdown',
         pv VARCHAR(40) NOT NULL DEFAULT '0' COMMENT '浏览量',
-        avator VARCHAR(100) NOT NULL COMMENT '用户头像',
+        avatar VARCHAR(100) NOT NULL COMMENT '用户头像',
         PRIMARY KEY(id)
     );`
 
@@ -73,7 +75,7 @@ let comment =
         content TEXT(0) NOT NULL COMMENT '评论内容',
         moment VARCHAR(40) NOT NULL COMMENT '评论时间',
         postid VARCHAR(40) NOT NULL COMMENT '文章id',
-        avator VARCHAR(100) NOT NULL COMMENT '用户头像',
+        avatar VARCHAR(100) NOT NULL COMMENT '用户头像',
         PRIMARY KEY(id)
     );`
 
@@ -81,29 +83,9 @@ let comment =
 let createTable = (sql) => {
     return query(sql, [])
 }
-
-console.log('创建表')
 // 开始建表
 createTable(users)
 createTable(posts)
 createTable(comment)
 
-//注册用户
-exports.insertUser = (value) => {
-    console.log(value)
-    let _sql = `insert into users set name=?,pass=?;`
-    return query(_sql, value)
-}
-
-// 通过名字查找用户
-exports.findUserByName = (name) => {
-    let _sql = `select * from users where name="${name}";`
-    return query(_sql)
-}
-
-// 通过名字查找用户数量判断用户是否已经存在
-exports.findUserNameCount = (name) => {
-    let _sql = `select count(*) as count from users where name="${name}";`
-    return query(_sql)
-}
 

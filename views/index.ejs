@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>BiaoChenXuYing 的个人博客网站</title>
+    <meta name="keywords" content="BiaoChenXuYing" />
+    <meta
+      name="description"
+      content="加班到天明，学习到昏厥 ！！！
+微信公众号：BiaoChenXuYing
+分享 WEB 全栈开发等相关的技术文章，热点资源，全栈程序员的成长之路。"
+    />
+    <style lang="css">
+      body {
+          padding:0;
+          margin:0;
+          overflow:hidden;
+      }
+      canvas {
+          padding:0;
+          margin:0;
+      }
+      div.content {
+          width: 100%;
+          height: 100%;
+          position:fixed;
+          left:0;
+          top:0;
+          right: 0;
+          bottom: 0;
+          font-size: 20px;
+          text-align: center;
+          color: white;
+          padding-top: 12%;
+      }
+      .user img{
+          width: 220px;
+          border-radius: 50%;
+          animation:mylogo 3s;
+          -moz-animation:mylogo 3s; /* Firefox */
+          -webkit-animation:mylogo 3s; /* Safari and Chrome */
+          -o-animation:mylogo 3s; /* Opera */
+      }
+      .content-body{
+          margin-top: 20px;
+      }
+      .logion{
+          margin: 20px;
+      }
+      .link{
+          color: rgb(155, 35, 35);
+          text-decoration: none;
+          margin-bottom: 30px;
+          font-size: 40px;
+      }
+      .link:hover{
+          color: rgb(231, 17, 17);
+      }
+      @keyframes mylogo
+      {
+          from {
+              width:50px;
+          }
+          to {
+              width: 220px;
+          }
+      }
+      @-moz-keyframes mylogo /* Firefox */
+      {
+          from {
+              width:50px;
+          }
+          to {
+              width: 220px;
+          }
+      }
+      @-webkit-keyframes mylogo /* Safari and Chrome */
+      {
+          from {
+              width:50px;
+          }
+          to {
+              width: 220px;
+          }
+      }
+      @-o-keyframes mylogo /* Opera */
+      {
+          from {
+              width:50px;
+          }
+          to {
+              width: 220px;
+          }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="user">
+        <a class="link" href="http://biaochenxuying.cn"
+          ><img src="img/userLogo.jpeg"
+        /></a>
+      </div>
+      <div class="content-body">
+        <a class="link" href="http://biaochenxuying.cn"> 首页 </a>
+        <div class="logion">加班到天明，学习到昏厥 ！！！</div>
+        <div class="introduce">
+          程序员不止眼前的逻辑和代码，还有底层的框架和架构。
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

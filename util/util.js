@@ -1,6 +1,8 @@
-import crypto from 'cripto';
-import { DATE } from 'sequelize/types';
+import crypto from 'crypto';
+const jwt = require('jsonwebtoken');
 
+
+const signkey = 'mes_qdhd_mobile';
 module.exports = {
     MD5_SUFFIX: '',
     md5: function(pwd) {
@@ -8,9 +10,9 @@ module.exports = {
         return md5.update(pwd).digest('hex')
     },
     // 响应客户端
-    responseClient(res, httpCode = 50, code = 3, message = '服务器异常', data = {}) {
+    responseClient(res, httpCode = 500, code = 3, message = '服务器异常', data = {}) {
         let responseData = {};
-        responseData.cdoe = code;
+        responseData.code = code;
         responseData.message = message;
         responseData.data = data;
         res.status(httpCode).json(responseData)
@@ -25,5 +27,28 @@ module.exports = {
         const m = date.getMinutes() < 10 ? '0' + date.getMinutes() + ':': date.getMinutes() + ':';
         const s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
         return Y + M + D + h + m + s;
+    },
+    // 生成token
+    setToken(user) {
+        return new Promise((resolve, reject) => {
+            const token = jwt.sign({
+                user: user
+            }, signkey, { expiresIn: 60*60*24*30});
+            resolve(token);
+        })
+    },
+    // 验证token
+    verifyToken (token) {
+        return new Promise((resolve, reject) => {
+            var info = jwt.verify(token, signkey, (err, decoded) => {
+                if(err) {
+                    console.log(err);
+                    return;
+                }
+                console.log(decoded);
+            })
+            resolve(info);
+        })
     }
+
 }
