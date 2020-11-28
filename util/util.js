@@ -15,7 +15,9 @@ module.exports = {
         responseData.code = code;
         responseData.message = message;
         responseData.data = data;
-        res.status(httpCode).json(responseData)
+        console.log(httpCode);
+        res.status(httpCode);
+        res.send(responseData);
     },
     // 时间戳转时间
     timestampToTime(time) {

@@ -2,13 +2,13 @@ import { query } from '../mysql/mysql.js';
 
 //注册用户
 exports.insertUser = (value) => {
-    let _sql = `insert into users set name=?,pass=?;`
+    let _sql = `insert into users set name=?,pass=?,avator=?,moment=?;`
     return query(_sql, value)
 }
 
 // 通过名字查找用户
 exports.findUserByName = (name) => {
-    let _sql = `select * from users where name="${name}";`
+    let _sql = `select name,id,avator from users where name="${name}";`
     return query(_sql)
 }
 

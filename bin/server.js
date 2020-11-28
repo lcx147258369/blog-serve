@@ -5,7 +5,7 @@ const app = require('../app')
 const debug = require('debug')('node-blog:server')
 const http = require('http')
 
-const port = normalizePort(process.env.PORT || '8000')
+const port = normalizePort(process.env.PORT || '3333');
 
 app.set('port', port)
 
