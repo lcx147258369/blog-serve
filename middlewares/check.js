@@ -9,7 +9,7 @@ module.exports = {
     },
     // 没有登录的情况，定向到登录
     checkLogin: (ctx) => {
-        if (!ctx.session || !ctx.session.user) {
+        if (!ctx.session || !ctx.session.userInfo) {
             ctx.redirect('/login');
             return false;
         }

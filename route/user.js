@@ -86,7 +86,6 @@ async function insertUser (name, password, res, req ,avator='https://ss3.bdstati
         let { name } = req.body;
         let token = await setToken(name);
         req.session.userInfo = user[0];
-        // console.log
         res.send({
             code: 1,
             msg:  msg + '成功',
@@ -170,7 +169,9 @@ exports.login = async (req, res) => {
   * @param {*} res 
   */
  exports.logOut = async (req, res) => {
+     console.log(req.locals)
      try {
+         console.log(req.session);
         if(req.session.userInfo) {
             req.session.userInfo = null;
         } 

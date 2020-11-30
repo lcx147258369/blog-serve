@@ -6,6 +6,7 @@ const logger = require('morgan')
 const session = require('express-session')
 const userModel = require('./mysql/mysql.js')
 const route = require('./route/index.js')
+const { notAuthority } = require('./middlewares/checkConfig')
 // import 等语法要用到 babel 支持
 require('babel-register')
 const app = express()
@@ -20,6 +21,13 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(cookieParser('blog_node_cookie'))
 
+app.all('*', function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', '*');
+    res.header('Content-Type', 'application/json;charset=utf-8');
+    next();
+})
+
 app.use(
     session({
         secret: 'blog_node_cookie',
@@ -30,24 +38,26 @@ app.use(
     })
 )
 
-app.use(function (req, res, next) {
-    res.locals.userInfo = req.session.userInfo;
-    var err = req.session.error;
-    res.locals.message = '';
-　　if (err) res.locals.message = '<div style="margin-bottom: 20px;color:red;">' + err + '</div>';
-    next();
-})
 
-app.all('*', function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', '*');
-    res.header('Content-Type', 'application/json;charset=utf-8');
-    next();
+app.use(function(req, res, next) {
+    let url = req.url;
+   
+    if(notAuthority.includes(url)) {
+        // console.log(req.session);
+         next();
+    //     res.session = req.session.userInfo;
+    //     var err = req.session.error;
+    //     res.locals.message = '';
+    // 　　if (err) res.locals.message = '<div style="margin-bottom: 20px;color:red;">' + err + '</div>';
+    //     next();
+    } else {
+        console.log(res.session);
+    }   
 })
-
 
 
 route(app);
+
 
 
 // 404的处理
